@@ -4,3 +4,6 @@
 *.vsidx
 .vs/AdventOfCode2023/FileContentIndex/read.lock
 .vs/AdventOfCode2023/v17/.suo
+.vs/VSWorkspaceState.json
+.vs/AdventOfCode2023/config/applicationhost.config
+.vs/launch.vs.json
