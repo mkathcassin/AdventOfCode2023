@@ -27,13 +27,12 @@ class symbol():
         self.symbl=char
 
 symbols = []
-parts = []
 
 def decode_date(lines):
     coors = [["." for i in range(len(lines))] for j in range(len(lines[0]))]
     for i,line in enumerate(lines):
         for j,char in enumerate(line):
-            if re.findall("[^\w.\n]",char):
+            if char == '*':
                 #print("symbol found: "+char)
                 new_symbol:symbol = symbol(x =i, y=j,char=char)
                 new_symbol.surround_coors = surrounding_coordinates(i,j,len(lines),len(lines[0]))
@@ -102,18 +101,21 @@ def surrounding_coordinates(x:int,y:int,limit_x,limit_y) -> list[(int,int)]:
 def main():
     raw_lines = process_raw_input(3)
     raw_coors = decode_date(raw_lines)
+    parts = []
     for sym in symbols:
+        temp_parts=[]
         for coor in sym.surround_coors:
             char = raw_coors[coor[0]][coor[1]]
             if char.isdigit():
                 num = get_full_num(coor[0],coor[1],raw_coors)
-                print(num)
-                parts.append(num)
-    #There is most likely on purpose duplicate values
-    set_parts = set(parts)
-    for part in set_parts:
-        print(part)
-    print(sum(set_parts))
+                #print(num)
+                temp_parts.append(num)
+           
+        if len(set(temp_parts)) == 2:
+            tp= list(set(temp_parts))
+            ratio= tp[0] * tp[1]
+            parts.append(ratio)
+    print(sum(parts))
 
 
 main()
